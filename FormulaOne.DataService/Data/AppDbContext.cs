@@ -12,7 +12,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     // define the relationship between the entities
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Achievement>()
+        modelBuilder
+            .Entity<Achievement>()
             .HasOne(a => a.Driver)
             .WithMany(d => d.Achievements)
             .HasForeignKey(a => a.DriverId)
