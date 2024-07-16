@@ -27,7 +27,8 @@ namespace FormulaOne.DataService.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Drivers", x => x.Id);
-                });
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "Achievements",
@@ -50,23 +51,24 @@ namespace FormulaOne.DataService.Migrations
                         name: "FK_Achievement_Driver",
                         column: x => x.DriverId,
                         principalTable: "Drivers",
-                        principalColumn: "Id");
-                });
+                        principalColumn: "Id"
+                    );
+                }
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Achievements_DriverId",
                 table: "Achievements",
-                column: "DriverId");
+                column: "DriverId"
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Achievements");
+            migrationBuilder.DropTable(name: "Achievements");
 
-            migrationBuilder.DropTable(
-                name: "Drivers");
+            migrationBuilder.DropTable(name: "Drivers");
         }
     }
 }
