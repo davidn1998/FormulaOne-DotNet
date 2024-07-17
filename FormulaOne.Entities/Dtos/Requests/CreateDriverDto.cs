@@ -1,6 +1,6 @@
 ﻿namespace FormulaOne.Entities.Dtos.Requests;
 
-public class CreateDriverRequest
+public class CreateDriverDto
 {
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;

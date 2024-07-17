@@ -1,6 +1,6 @@
 ﻿namespace FormulaOne.Entities.Dtos.Requests;
 
-public class UpdateDriverRequest
+public class UpdateDriverDto
 {
     public Guid DriverId { get; set; }
     public string FirstName { get; set; } = string.Empty;

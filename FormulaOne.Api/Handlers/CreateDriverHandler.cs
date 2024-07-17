@@ -7,22 +7,22 @@ using MediatR;
 
 namespace FormulaOne.Api.Handlers;
 
-public class AddDriverRequestHandler(IUnitOfWork unitOfWork, IMapper mapper)
-    : IRequestHandler<AddDriverRequest, GetDriverResponse>
+public class CreateDriverHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    : IRequestHandler<CreateDriverRequest, GetDriverDto>
 {
     protected readonly IUnitOfWork _unitOfWork = unitOfWork;
     protected readonly IMapper _mapper = mapper;
 
-    public async Task<GetDriverResponse> Handle(
-        AddDriverRequest request,
+    public async Task<GetDriverDto> Handle(
+        CreateDriverRequest request,
         CancellationToken cancellationToken
     )
     {
-        var driver = _mapper.Map<Driver>(request.DriverRequest);
+        var driver = _mapper.Map<Driver>(request.DriverDto);
 
         await _unitOfWork.Drivers.Add(driver);
         await _unitOfWork.CompleteAsync();
 
-        return _mapper.Map<GetDriverResponse>(driver);
+        return _mapper.Map<GetDriverDto>(driver);
     }
 }

@@ -8,10 +8,10 @@ public class DomainToResponse : Profile
 {
     public DomainToResponse()
     {
-        CreateMap<Achievement, DriverAchievementResponse>()
+        CreateMap<Achievement, GetDriverAchievementDto>()
             .ForMember(dest => dest.Wins, opt => opt.MapFrom(src => src.RaceWins));
 
-        CreateMap<Driver, GetDriverResponse>()
+        CreateMap<Driver, GetDriverDto>()
             .ForMember(dest => dest.DriverId, opt => opt.MapFrom(src => src.Id))
             .ForMember(
                 dest => dest.FullName,

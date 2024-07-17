@@ -37,33 +37,29 @@ public class DriversController(IUnitOfWork unitOfWork, IMapper mapper, IMediator
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddDriver([FromBody] CreateDriverRequest driver)
+    public async Task<IActionResult> AddDriver([FromBody] CreateDriverDto driver)
     {
         if (!ModelState.IsValid)
-        {
             return BadRequest(ModelState);
-        }
 
-        var command = new AddDriverRequest(driver);
+        var command = new CreateDriverRequest(driver);
         var result = await _mediator.Send(command);
 
         return CreatedAtAction(nameof(GetDriver), new { id = result.DriverId }, result);
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateDriver([FromBody] UpdateDriverRequest driver)
+    public async Task<IActionResult> UpdateDriver([FromBody] UpdateDriverDto driver)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
 
-        var result = _mapper.Map<Driver>(driver);
+        var command = new UpdateDriverRequest(driver);
+        var result = await _mediator.Send(command);
 
-        await _unitOfWork.Drivers.Update(result);
-        await _unitOfWork.CompleteAsync();
-
-        return NoContent();
+        return result ? NoContent() : BadRequest();
     }
 
     [HttpDelete("{driverId:guid}")]

@@ -3,4 +3,4 @@ using MediatR;
 
 namespace FormulaOne.Api.Queries;
 
-public class GetAllDriversQuery : IRequest<IEnumerable<GetDriverResponse>> { }
+public class GetAllDriversQuery : IRequest<IEnumerable<GetDriverDto>> { }

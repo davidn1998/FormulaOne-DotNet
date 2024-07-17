@@ -15,7 +15,7 @@ public class AchievementsController(IUnitOfWork unitOfWork, IMapper mapper)
     {
         var achievements = await _unitOfWork.Achievements.All();
 
-        var result = _mapper.Map<IEnumerable<DriverAchievementResponse>>(achievements);
+        var result = _mapper.Map<IEnumerable<GetDriverAchievementDto>>(achievements);
 
         return Ok(result);
     }
@@ -30,14 +30,14 @@ public class AchievementsController(IUnitOfWork unitOfWork, IMapper mapper)
             return NotFound("Achievements not found");
         }
 
-        var result = _mapper.Map<DriverAchievementResponse>(driverAchievements);
+        var result = _mapper.Map<GetDriverAchievementDto>(driverAchievements);
 
         return Ok(result);
     }
 
     [HttpPost]
     public async Task<IActionResult> AddAchievement(
-        [FromBody] CreateDriverAchievementRequest acheivement
+        [FromBody] CreateDriverAchievementDto acheivement
     )
     {
         if (!ModelState.IsValid)
@@ -59,7 +59,7 @@ public class AchievementsController(IUnitOfWork unitOfWork, IMapper mapper)
 
     [HttpPut]
     public async Task<IActionResult> UpdateAchievement(
-        [FromBody] UpdateDriverAchievementRequest achievement
+        [FromBody] UpdateDriverAchievementDto achievement
     )
     {
         if (!ModelState.IsValid)

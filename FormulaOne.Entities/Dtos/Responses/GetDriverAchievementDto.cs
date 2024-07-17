@@ -1,6 +1,6 @@
-﻿namespace FormulaOne.Entities.Dtos.Requests;
+﻿namespace FormulaOne.Entities.Dtos.Responses;
 
-public class UpdateDriverAchievementRequest
+public class GetDriverAchievementDto
 {
     public Guid DriverId { get; set; }
     public int WorldChampionship { get; set; }
