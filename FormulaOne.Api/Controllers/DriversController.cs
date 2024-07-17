@@ -11,10 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace FormulaOne.Api.Controllers;
 
 public class DriversController(IUnitOfWork unitOfWork, IMapper mapper, IMediator mediator)
-    : BaseController(unitOfWork, mapper)
+    : BaseController(unitOfWork, mapper, mediator)
 {
-    private readonly IMediator _mediator = mediator;
-
     [HttpGet]
     public async Task<IActionResult> GetAllDrivers()
     {
@@ -65,16 +63,9 @@ public class DriversController(IUnitOfWork unitOfWork, IMapper mapper, IMediator
     [HttpDelete("{driverId:guid}")]
     public async Task<IActionResult> DeleteDriver(Guid driverId)
     {
-        var driver = await _unitOfWork.Drivers.GetById(driverId);
+        var command = new DeleteDriverRequest(driverId);
+        var result = await _mediator.Send(command);
 
-        if (driver is null)
-        {
-            return NotFound();
-        }
-
-        await _unitOfWork.Drivers.Delete(driverId);
-        await _unitOfWork.CompleteAsync();
-
-        return NoContent();
+        return result ? NoContent() : NotFound();
     }
 }

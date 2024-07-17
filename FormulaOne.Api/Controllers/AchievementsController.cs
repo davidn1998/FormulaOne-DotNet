@@ -3,12 +3,13 @@ using FormulaOne.DataService.Repositories.Interfaces;
 using FormulaOne.Entities.DbSet;
 using FormulaOne.Entities.Dtos.Requests;
 using FormulaOne.Entities.Dtos.Responses;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FormulaOne.Api.Controllers;
 
-public class AchievementsController(IUnitOfWork unitOfWork, IMapper mapper)
-    : BaseController(unitOfWork, mapper)
+public class AchievementsController(IUnitOfWork unitOfWork, IMapper mapper, IMediator mediator)
+    : BaseController(unitOfWork, mapper, mediator)
 {
     [HttpGet]
     public async Task<IActionResult> GetAllAchievements()
