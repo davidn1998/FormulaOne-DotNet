@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FormulaOne.Api.Commands;
 using FormulaOne.Api.Queries;
 using FormulaOne.DataService.Repositories.Interfaces;
 using FormulaOne.Entities;
@@ -43,12 +44,10 @@ public class DriversController(IUnitOfWork unitOfWork, IMapper mapper, IMediator
             return BadRequest(ModelState);
         }
 
-        var result = _mapper.Map<Driver>(driver);
+        var command = new AddDriverRequest(driver);
+        var result = await _mediator.Send(command);
 
-        await _unitOfWork.Drivers.Add(result);
-        await _unitOfWork.CompleteAsync();
-
-        return CreatedAtAction(nameof(GetDriver), new { id = result.Id }, result);
+        return CreatedAtAction(nameof(GetDriver), new { id = result.DriverId }, result);
     }
 
     [HttpPut]

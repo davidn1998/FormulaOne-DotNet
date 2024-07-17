@@ -1,4 +1,4 @@
-﻿namespace FormulaOne.Entities;
+﻿namespace FormulaOne.Entities.Dtos.Responses;
 
 public class GetDriverResponse
 {

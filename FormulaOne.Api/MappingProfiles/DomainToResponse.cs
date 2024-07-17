@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FormulaOne.Entities;
 using FormulaOne.Entities.DbSet;
 using FormulaOne.Entities.Dtos.Responses;
 
