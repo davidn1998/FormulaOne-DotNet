@@ -12,7 +12,7 @@ public class DomainToResponse : Profile
             .ForMember(dest => dest.Wins, opt => opt.MapFrom(src => src.RaceWins));
 
         CreateMap<Driver, GetDriverDto>()
-            .ForMember(dest => dest.DriverId, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(
                 dest => dest.FullName,
                 opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}")

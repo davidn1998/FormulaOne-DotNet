@@ -21,10 +21,10 @@ public class AchievementsController(IUnitOfWork unitOfWork, IMapper mapper, IMed
         return Ok(result);
     }
 
-    [HttpGet("{driverId:guid}")]
-    public async Task<IActionResult> GetDriverAchievements(Guid driverId)
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetDriverAchievements(Guid id)
     {
-        var driverAchievements = await _unitOfWork.Achievements.GetDriverAchievementAsync(driverId);
+        var driverAchievements = await _unitOfWork.Achievements.GetDriverAchievementAsync(id);
 
         if (driverAchievements is null)
         {
@@ -58,9 +58,9 @@ public class AchievementsController(IUnitOfWork unitOfWork, IMapper mapper, IMed
         );
     }
 
-    [HttpPut("{driverId:guid}")]
+    [HttpPut("{id:guid}")]
     public async Task<IActionResult> UpdateAchievement(
-        Guid driverId,
+        Guid id,
         [FromBody] UpdateDriverAchievementDto achievement
     )
     {
@@ -71,23 +71,23 @@ public class AchievementsController(IUnitOfWork unitOfWork, IMapper mapper, IMed
 
         var result = _mapper.Map<Achievement>(achievement);
 
-        await _unitOfWork.Achievements.Update(driverId, result);
+        await _unitOfWork.Achievements.Update(id, result);
         await _unitOfWork.CompleteAsync();
 
         return NoContent();
     }
 
-    [HttpDelete("{driverId:guid}")]
-    public async Task<IActionResult> DeleteAchievement(Guid driverId)
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> DeleteAchievement(Guid id)
     {
-        var driverAchievements = await _unitOfWork.Achievements.GetDriverAchievementAsync(driverId);
+        var driverAchievements = await _unitOfWork.Achievements.GetDriverAchievementAsync(id);
 
         if (driverAchievements is null)
         {
             return NotFound();
         }
 
-        await _unitOfWork.Achievements.Delete(driverId);
+        await _unitOfWork.Achievements.Delete(id);
         await _unitOfWork.CompleteAsync();
 
         return NoContent();
