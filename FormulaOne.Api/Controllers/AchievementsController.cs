@@ -58,8 +58,9 @@ public class AchievementsController(IUnitOfWork unitOfWork, IMapper mapper, IMed
         );
     }
 
-    [HttpPut]
+    [HttpPut("{driverId:guid}")]
     public async Task<IActionResult> UpdateAchievement(
+        Guid driverId,
         [FromBody] UpdateDriverAchievementDto achievement
     )
     {
@@ -70,7 +71,7 @@ public class AchievementsController(IUnitOfWork unitOfWork, IMapper mapper, IMed
 
         var result = _mapper.Map<Achievement>(achievement);
 
-        await _unitOfWork.Achievements.Update(result);
+        await _unitOfWork.Achievements.Update(driverId, result);
         await _unitOfWork.CompleteAsync();
 
         return NoContent();

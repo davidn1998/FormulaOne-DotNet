@@ -3,7 +3,8 @@ using MediatR;
 
 namespace FormulaOne.Api.Commands;
 
-public class UpdateDriverRequest(UpdateDriverDto driverDto) : IRequest<bool>
+public class UpdateDriverRequest(Guid driverId, UpdateDriverDto driverDto) : IRequest<bool>
 {
+    public Guid DriverId { get; } = driverId;
     public UpdateDriverDto DriverDto { get; } = driverDto;
 }

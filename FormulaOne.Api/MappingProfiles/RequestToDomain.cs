@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FormulaOne.Api.Commands;
 using FormulaOne.Entities.DbSet;
 using FormulaOne.Entities.Dtos.Requests;
 
@@ -25,6 +24,7 @@ public class RequestToDomain : Profile
             .ForMember(dest => dest.UpdatedDate, opt => opt.MapFrom(src => DateTime.UtcNow));
 
         CreateMap<UpdateDriverDto, Driver>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.DriverId))
             .ForMember(dest => dest.UpdatedDate, opt => opt.MapFrom(src => DateTime.UtcNow));
     }
 }

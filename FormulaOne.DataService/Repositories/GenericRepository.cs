@@ -33,7 +33,7 @@ public class GenericRepository<T>(AppDbContext context, ILogger logger) : IGener
         return await _dbSet.FindAsync(id);
     }
 
-    public virtual Task<bool> Update(T entity)
+    public virtual Task<bool> Update(Guid id, T entity)
     {
         throw new NotImplementedException();
     }

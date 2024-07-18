@@ -4,7 +4,7 @@ using FormulaOne.DataService.Repositories.Interfaces;
 using FormulaOne.Entities.DbSet;
 using MediatR;
 
-namespace FormulaOne.Api;
+namespace FormulaOne.Api.Handlers;
 
 public class UpdateDriverHandler(IUnitOfWork unitOfWork, IMapper mapper)
     : IRequestHandler<UpdateDriverRequest, bool>
@@ -16,9 +16,9 @@ public class UpdateDriverHandler(IUnitOfWork unitOfWork, IMapper mapper)
     {
         var result = _mapper.Map<Driver>(request.DriverDto);
 
-        await _unitOfWork.Drivers.Update(result);
-        await _unitOfWork.CompleteAsync();
+        await _unitOfWork.Drivers.Update(request.DriverId, result);
+        var success = await _unitOfWork.CompleteAsync();
 
-        return true;
+        return success;
     }
 }

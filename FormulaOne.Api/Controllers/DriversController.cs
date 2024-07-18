@@ -2,8 +2,6 @@
 using FormulaOne.Api.Commands;
 using FormulaOne.Api.Queries;
 using FormulaOne.DataService.Repositories.Interfaces;
-using FormulaOne.Entities;
-using FormulaOne.Entities.DbSet;
 using FormulaOne.Entities.Dtos.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -46,15 +44,15 @@ public class DriversController(IUnitOfWork unitOfWork, IMapper mapper, IMediator
         return CreatedAtAction(nameof(GetDriver), new { id = result.DriverId }, result);
     }
 
-    [HttpPut]
-    public async Task<IActionResult> UpdateDriver([FromBody] UpdateDriverDto driver)
+    [HttpPut("{driverId:guid}")]
+    public async Task<IActionResult> UpdateDriver(Guid driverId, [FromBody] UpdateDriverDto driver)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
 
-        var command = new UpdateDriverRequest(driver);
+        var command = new UpdateDriverRequest(driverId, driver);
         var result = await _mediator.Send(command);
 
         return result ? NoContent() : BadRequest();

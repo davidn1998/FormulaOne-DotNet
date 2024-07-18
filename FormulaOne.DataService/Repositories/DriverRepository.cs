@@ -51,11 +51,16 @@ public class DriverRepository(AppDbContext context, ILogger logger)
         }
     }
 
-    public override async Task<bool> Update(Driver entity)
+    public override async Task<bool> Update(Guid id, Driver entity)
     {
         try
         {
-            var driver = await _dbSet.FirstOrDefaultAsync(d => d.Id == entity.Id);
+            if (entity.Id != id)
+            {
+                return false;
+            }
+
+            var driver = await _dbSet.FirstOrDefaultAsync(d => d.Id == id);
 
             if (driver is null)
             {
