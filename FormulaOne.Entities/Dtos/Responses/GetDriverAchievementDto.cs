@@ -2,6 +2,7 @@
 
 public class GetDriverAchievementDto
 {
+    public Guid Id { get; set; }
     public Guid DriverId { get; set; }
     public int WorldChampionship { get; set; }
     public int PolePosition { get; set; }

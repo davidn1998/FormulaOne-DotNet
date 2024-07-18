@@ -10,11 +10,11 @@ public class AchievementsRepository(AppDbContext context, ILogger logger)
     : GenericRepository<Achievement>(context, logger),
         IAchievementsRepository
 {
-    public async Task<Achievement?> GetDriverAchievementAsync(Guid driverId)
+    public async Task<Achievement?> GetDriverAchievementAsync(Guid id)
     {
         try
         {
-            return await _dbSet.FirstOrDefaultAsync(a => a.DriverId == driverId);
+            return await _dbSet.FirstOrDefaultAsync(a => a.Id == id);
         }
         catch (Exception ex)
         {

@@ -41,7 +41,7 @@ public class DriversController(IUnitOfWork unitOfWork, IMapper mapper, IMediator
         var command = new CreateDriverRequest(driver);
         var result = await _mediator.Send(command);
 
-        return CreatedAtAction(nameof(GetDriver), new { id = result.DriverId }, result);
+        return CreatedAtAction(nameof(GetDriver), new { id = result.Id }, result);
     }
 
     [HttpPut("{driverId:guid}")]
