@@ -1,6 +1,6 @@
-﻿namespace FormulaOne.Entities;
+﻿namespace FormulaOne.Entities.Dtos.Responses;
 
-public class GetDriverResponse
+public class GetDriverDto
 {
     public Guid DriverId { get; set; }
     public string FullName { get; set; } = string.Empty;

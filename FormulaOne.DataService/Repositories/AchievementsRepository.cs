@@ -68,7 +68,7 @@ public class AchievementsRepository(AppDbContext context, ILogger logger)
         }
     }
 
-    public override async Task<bool> Update(Achievement entity)
+    public override async Task<bool> Update(Guid id, Achievement entity)
     {
         try
         {
