@@ -11,8 +11,13 @@ services:
         - action: rebuild
           path: .
     environment:
-       - ASPNETCORE_ENVIRONMENT=Development
-       - ASPNETCORE_URLS=http://+:80'
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80'
+      - server=sql_server_db
+      - port=1433
+      - database=formulaonedb
+      - user=sa
+      - password=Psj#oP5!WLQFsB
     depends_on:
       - sql_server_db
       

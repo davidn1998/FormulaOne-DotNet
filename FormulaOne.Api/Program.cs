@@ -23,7 +23,18 @@ builder.Services.AddSwaggerGen();
 // builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
 // SqlServer
-var connectionString = builder.Configuration.GetConnectionString("SqlServerConnection");
+// var connectionString = builder.Configuration.GetConnectionString("SqlServerConnection"); // get the connection string from appsettings.json
+
+// From environment variables
+var server = builder.Configuration["server"];
+var port = builder.Configuration["port"];
+var database = builder.Configuration["database"];
+var user = builder.Configuration["user"];
+var password = builder.Configuration["password"];
+
+var connectionString =
+    $"Server={server},{port};Database={database};User Id={user};Password={password};TrustServerCertificate=True;";
+
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
