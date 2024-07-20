@@ -1,0 +1,38 @@
+services:
+  web_api:
+    container_name: web_api
+    build:
+      context: .
+      target: development
+    ports:
+      - 8080:80
+    develop:
+      watch:
+        - action: rebuild
+          path: .
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80'
+      - server=sql_server_db
+      - port=1433
+      - database=formulaonedb
+      - user=sa
+      - password=Psj#oP5!WLQFsB
+    depends_on:
+      - sql_server_db
+      
+  sql_server_db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sql_server_db
+    restart: always
+    environment:
+      - MSSQL_SA_PASSWORD=Psj#oP5!WLQFsB
+      - ACCEPT_EULA=Y
+    ports:
+      - 1433:1433
+    volumes:
+      - db-data:/var/opt/mssql
+
+volumes:
+  db-data:
+

@@ -1,3 +1,4 @@
+using FormulaOne.Api.Services;
 using FormulaOne.DataService.Data;
 using FormulaOne.DataService.Repositories;
 using FormulaOne.DataService.Repositories.Interfaces;
@@ -13,8 +14,28 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(connectionString));
+// SQLite
+// var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+// builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(connectionString));
+
+// PostgreSQL
+// var connectionString = builder.Configuration.GetConnectionString("PostgresConnection");
+// builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+
+// SqlServer
+// var connectionString = builder.Configuration.GetConnectionString("SqlServerConnection"); // get the connection string from appsettings.json
+
+// From environment variables
+var server = builder.Configuration["server"];
+var port = builder.Configuration["port"];
+var database = builder.Configuration["database"];
+var user = builder.Configuration["user"];
+var password = builder.Configuration["password"];
+
+var connectionString =
+    $"Server={server},{port};Database={database};User Id={user};Password={password};TrustServerCertificate=True;";
+
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -37,5 +58,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+await app.MigrateDbAsync();
 
 app.Run();
