@@ -18,8 +18,12 @@ builder.Services.AddSwaggerGen();
 // builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(connectionString));
 
 // PostgreSQL
-var connectionString = builder.Configuration.GetConnectionString("PostgresDbConnection");
-builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+// var connectionString = builder.Configuration.GetConnectionString("PostgresConnection");
+// builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+
+// SqlServer
+var connectionString = builder.Configuration.GetConnectionString("SqlServerConnection");
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
