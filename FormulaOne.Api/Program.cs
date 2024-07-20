@@ -1,3 +1,4 @@
+using FormulaOne.Api.Services;
 using FormulaOne.DataService.Data;
 using FormulaOne.DataService.Repositories;
 using FormulaOne.DataService.Repositories.Interfaces;
@@ -46,5 +47,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+await app.MigrateDbAsync();
 
 app.Run();
